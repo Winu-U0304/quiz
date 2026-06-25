@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中1総復習クイズゲーム</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #eef2f7; text-align: center; padding: 20px; }
+    .container { background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 25px; max-width: 500px; margin: 30px auto; }
+    h1 { color: #2c3e50; font-size: 22px; }
+    .badge-status { background: #9b59b6; color: #fff; font-weight: bold; font-size: 14px; padding: 5px 12px; border-radius: 15px; display: inline-block; }
+    .coin-status { background: #f1c40f; color: #fff; font-weight: bold; font-size: 18px; padding: 8px 15px; border-radius: 20px; display: inline-block; margin: 10px 0 20px 0; }
+    .hidden { display: none !important; }
+    .btn { background: #3498db; color: white; border: none; padding: 14px; font-size: 16px; border-radius: 8px; cursor: pointer; margin: 10px auto; width: 90%; display: block; font-weight: bold; }
+    .btn:hover { background: #2980b9; }
+    .btn:disabled { background: #95a5a6; cursor: not-allowed; }
+    .choice-btn { background: #f8f9fa; color: #333; border: 2px solid #bdc3c7; text-align: left; }
+    .choice-btn:hover { background: #e1e8ed; border-color: #3498db; }
+    .shop-box, .title-box { border-top: 2px dashed #bdc3c7; margin-top: 25px; padding-top: 20px; }
+    .section-title { font-weight: bold; color: #e67e22; margin-bottom: 10px; }
+    #question-text { font-size: 17px; font-weight: bold; margin: 20px 0; text-align: left; line-height: 1.5; }
+    #feedback-text { font-size: 20px; font-weight: bold; margin-bottom: 10px; }
+    #explanation-text { font-size: 14px; color: #555; background: #f9f9f9; padding: 12px; border-radius: 6px; text-align: left; line-height: 1.5; }
+    .title-item { display: inline-block; background: #ecf0f1; padding: 5px 10px; margin: 5px; border-radius: 4px; font-size: 13px; cursor: pointer; border: 1px solid #bdc3c7; }
+    .title-unlocked { background: #d5dbdb; font-weight: bold; }
+</style>
+</head>
+<body>
 
+<div class="container">
+    <h1>📝 中1総復習 クイズRPG</h1>
+    <div><span class="badge-status" id="current-title-display">👑 称号: なし</span></div><br>
+    <div class="coin-status">🪙 所持コイン: <span id="coin-count">0</span>枚</div>
+
+    <!-- メニュー画面 -->
+    <div id="main-screen">
+        <div id="subject-buttons"></div>
+        <div class="title-box">
+            <div class="section-title">🏆 獲得した称号（クリックで装備）</div>
+            <div id="title-list-container"></div>
+        </div>
+        <div class="shop-box">
+            <div class="section-title">🛒 コインショップ (各100コインで開放)</div>
+            <div id="shop-buttons"></div>
+        </div>
+        <button class="btn" onclick="resetGame()" style="background:#e74c3c; margin-top:30px; font-size:12px; padding:5px; width:50%;">リセット</button>
+    </div>
+
+    <!-- クイズ画面 -->
+    <div id="quiz-screen" class="hidden">
+        <div id="progress" style="font-size: 14px; color: #7f8c8d; text-align: left;"></div>
+        <div id="question-text"></div>
+        <div id="choices-container">
+            <button class="btn choice-btn" onclick="selectChoice(0)" id="c0"></button>
+            <button class="btn choice-btn" onclick="selectChoice(1)" id="c1"></button>
+            <button class="btn choice-btn" onclick="selectChoice(2)" id="c2"></button>
+            <button class="btn choice-btn" onclick="selectChoice(3)" id="c3"></button>
+        </div>
+    </div>
+
+    <!-- 解説画面 -->
+    <div id="feedback-screen" class="hidden">
+        <div id="feedback-text"></div>
+        <div id="explanation-text"></div>
+        <button class="btn" onclick="nextQuestion()">次の問題へ進む 👉</button>
+    </div>
+
+    <!-- 結果画面 -->
+    <div id="result-screen" class="hidden">
+        <h2>🎉 単元クリア 🎉</h2>
+        <div id="result-score" style="font-size:22px; font-weight:bold; margin:10px 0;"></div>
+        <div id="earned-coins" style="font-size:24px; font-weight:bold; color:#f1c40f; margin:20px 0;"></div>
+        <div id="new-title-alert" style="font-size:16px; font-weight:bold; color:#9b59b6; margin:10px 0;"></div>
+        <button class="btn" onclick="backToMenu()">メニューに戻る</button>
+    </div>
+</div>
+
+<!-- ここで後ろのプログラムファイルを読み込んでいます -->
+<script src="script.js"></script>
+</body>
+</html>
